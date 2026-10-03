@@ -15368,20 +15368,96 @@ function sellerBooksGetDemoTransactions(){
             reportDate:today,
             importedAt:new Date().toISOString()
         }
-    ];
+,
+        {
+            id:"DEMO-005",
+            orderId:"DEMO-TKP-001",
+            packingId:"DEMO-TKP-001",
+            marketplaceId:"tokopedia",
+            marketplace:"Tokopedia",
+            storeId:"demo-tokopedia-1",
+            storeName:"Demo Tokopedia",
+            sku:"AMASA-LS",
+            qty:8,
+            salesAmount:1200000,
+            priceSnapshot:150000,
+            costSnapshot:70000,
+            adminFeeSku:17,
+            reportDate:today,
+            importedAt:new Date().toISOString()
+        },
+        {
+            id:"DEMO-006",
+            orderId:"DEMO-LZD-001",
+            packingId:"DEMO-LZD-001",
+            marketplaceId:"lazada",
+            marketplace:"Lazada",
+            storeId:"demo-lazada-1",
+            storeName:"Demo Lazada",
+            sku:"ARVEX-SG",
+            qty:7,
+            salesAmount:1750000,
+            priceSnapshot:250000,
+            costSnapshot:100000,
+            adminFeeSku:16,
+            reportDate:today,
+            importedAt:new Date().toISOString()
+        },
+        {
+            id:"DEMO-007",
+            orderId:"DEMO-TCO-001",
+            packingId:"DEMO-TCO-001",
+            marketplaceId:"toco",
+            marketplace:"Toco",
+            storeId:"demo-toco-1",
+            storeName:"Demo Toco",
+            sku:"ARVEX-CV",
+            qty:9,
+            salesAmount:1350000,
+            priceSnapshot:150000,
+            costSnapshot:90000,
+            adminFeeSku:15,
+            reportDate:today,
+            importedAt:new Date().toISOString()
+        },
+        {
+            id:"DEMO-008",
+            orderId:"DEMO-BLI-001",
+            packingId:"DEMO-BLI-001",
+            marketplaceId:"blibli",
+            marketplace:"Blibli",
+            storeId:"demo-blibli-1",
+            storeName:"Demo Blibli",
+            sku:"AMASA-DT",
+            qty:5,
+            salesAmount:1500000,
+            priceSnapshot:300000,
+            costSnapshot:120000,
+            adminFeeSku:15,
+            reportDate:today,
+            importedAt:new Date().toISOString()
+        }    ];
 }
 
 function sellerBooksGetDemoMarketplaces(){
     return [
         {id:"shopee",name:"Shopee",status:"active"},
-        {id:"tiktok",name:"TikTok",status:"active"}
+        {id:"tiktok",name:"TikTok Shop",status:"active"},
+        {id:"tokopedia",name:"Tokopedia",status:"active"},
+        {id:"lazada",name:"Lazada",status:"active"},
+        {id:"toco",name:"Toco",status:"active"},
+        {id:"blibli",name:"Blibli",status:"active"}
     ];
 }
 
 function sellerBooksGetDemoStores(){
     return [
         {id:"demo-shopee-1",name:"Demo Shopee",marketplaceId:"shopee",status:"active"},
-        {id:"demo-tiktok-1",name:"Demo TikTok Shop",marketplaceId:"tiktok",status:"active"}
+        {id:"demo-tiktok-1",name:"Demo TikTok Shop",marketplaceId:"tiktok",status:"active"},
+        {id:"demo-tokopedia-1",name:"Demo Tokopedia",marketplaceId:"tokopedia",status:"active"},
+        {id:"demo-lazada-1",name:"Demo Lazada",marketplaceId:"lazada",status:"active"},
+        {id:"demo-toco-1",name:"Demo Toco",marketplaceId:"toco",status:"active"},
+        {id:"demo-blibli-1",name:"Demo Blibli",marketplaceId:"blibli",status:"active"}
     ];
 }
 
@@ -15405,6 +15481,42 @@ function sellerBooksGetDemoCosts(){
             amount:100000,
             marketplaceId:"tiktok",
             storeId:"demo-tiktok-1"
+        },
+        {
+            id:"DEMO-COST-004",
+            date:today,
+            category:"Operasional",
+            description:"Biaya operasional Tokopedia demo",
+            amount:90000,
+            marketplaceId:"tokopedia",
+            storeId:"demo-tokopedia-1"
+        },
+        {
+            id:"DEMO-COST-005",
+            date:today,
+            category:"Promosi Marketplace",
+            description:"Promosi Lazada demo",
+            amount:80000,
+            marketplaceId:"lazada",
+            storeId:"demo-lazada-1"
+        },
+        {
+            id:"DEMO-COST-006",
+            date:today,
+            category:"Operasional",
+            description:"Biaya operasional Toco demo",
+            amount:70000,
+            marketplaceId:"toco",
+            storeId:"demo-toco-1"
+        },
+        {
+            id:"DEMO-COST-007",
+            date:today,
+            category:"Promosi Marketplace",
+            description:"Promosi Blibli demo",
+            amount:75000,
+            marketplaceId:"blibli",
+            storeId:"demo-blibli-1"
         },
         {
             id:"DEMO-COST-003",
@@ -17542,7 +17654,7 @@ let marketplaces = JSON.parse(
         id:"tokopedia",
         name:"Tokopedia",
         icon:"🟢",
-        status:"inactive",
+        status:"active",
         system:true
     },
 
@@ -17550,7 +17662,7 @@ let marketplaces = JSON.parse(
         id:"lazada",
         name:"Lazada",
         icon:"🔵",
-        status:"inactive",
+        status:"active",
         system:true
     },
 
@@ -17558,7 +17670,7 @@ let marketplaces = JSON.parse(
         id:"toco",
         name:"Toco",
         icon:"🟣",
-        status:"inactive",
+        status:"active",
         system:true
     },
 
@@ -17566,7 +17678,7 @@ let marketplaces = JSON.parse(
         id:"blibli",
         name:"Blibli",
         icon:"🔷",
-        status:"inactive",
+        status:"active",
         system:true
     }
 
