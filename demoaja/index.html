@@ -22681,11 +22681,19 @@ function renderProducts(){
 
 
 
-    /* FILTER DATA */
+    /* FILTER DATA
+       MODE DEMO: tampilkan 4 produk demo yang sama
+       dengan SKU yang dipakai pada Rincian Penjualan.
+    */
+
+    const productSource =
+        sellerBooksIsDemoMode()
+            ? sellerBooksGetDemoProducts()
+            : products;
 
     let filteredProducts =
 
-        products.filter(function(product){
+        productSource.filter(function(product){
 
 
             const matchSearch =
