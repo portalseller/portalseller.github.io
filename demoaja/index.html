@@ -19444,6 +19444,11 @@ function renderStoreMarketplaceOptions(){
 
 function renderStoreMarketplaceFilter(){
 
+    if(sellerBooksIsDemoMode()){
+        marketplaces = sellerBooksGetDemoMarketplaces();
+        stores = sellerBooksGetDemoStores();
+    }
+
     const filter =
 
         document.getElementById(
@@ -21356,6 +21361,15 @@ function sellerBooksStartIntegrationRealtime(){
 ===================================================== */
 
 function renderStores(skipIntegrationRefresh){
+
+    // Pada Mode Demo, gunakan data toko demo langsung agar
+    // halaman Akun Toko tidak bergantung pada Local Storage akun asli
+    // atau status integrasi Supabase.
+    if(sellerBooksIsDemoMode()){
+        marketplaces = sellerBooksGetDemoMarketplaces();
+        stores = sellerBooksGetDemoStores();
+        skipIntegrationRefresh = true;
+    }
 
     // Muat status integrasi dari Supabase saat render normal.
     // Render ulang dari refreshStoreIntegrationStates(true) memakai
