@@ -10438,7 +10438,7 @@ document.addEventListener(
                             <div class="sb-piutang-dashboard-info">Total piutang dikurangi pembayaran yang sudah masuk</div>
                         </div>
                     </div>
-                    <button type="button" class="sb-piutang-dashboard-button" onclick="sellerBooksDemoPiutangGuard()">Lihat Piutang →</button>
+                    <button type="button" class="sb-piutang-dashboard-button" onclick="sbPiutangOpen(this)">Lihat Piutang →</button>
                 </div>
 
 
@@ -15695,21 +15695,6 @@ document.addEventListener("submit",function(event){
     sellerBooksAlert("👁️ Mode Demo aktif. Form tidak dapat mengubah data.");
     return false;
 },true);
-
-function sellerBooksDemoPiutangGuard(){
-    if(typeof sellerBooksIsDemoMode === "function" && sellerBooksIsDemoMode()){
-        if(typeof sellerBooksAlert === "function"){
-            sellerBooksAlert("👁️ Mode Demo aktif. Data Piutang hanya dapat dilihat pada akun SellerBooks yang sebenarnya.");
-        }
-        return false;
-    }
-
-    if(typeof sbPiutangOpen === "function"){
-        return sbPiutangOpen();
-    }
-
-    return false;
-}
 
 function sellerBooksDemoLogoutGuard(){
     if(typeof sellerBooksIsDemoMode === "function" && sellerBooksIsDemoMode()){
