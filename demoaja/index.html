@@ -30975,6 +30975,10 @@ function escapeCostHtml(value){
 
 function getCostMarketplacesData(){
 
+    if(sellerBooksIsDemoMode()){
+        return sellerBooksGetDemoMarketplaces();
+    }
+
     try{
 
         return JSON.parse(
@@ -30993,6 +30997,10 @@ function getCostMarketplacesData(){
 
 
 function getCostStoresData(){
+
+    if(sellerBooksIsDemoMode()){
+        return sellerBooksGetDemoStores();
+    }
 
     try{
 
