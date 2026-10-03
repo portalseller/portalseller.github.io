@@ -1,0 +1,37 @@
+name: Copy SellerBooks Marketplace Assets
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+
+jobs:
+  copy-assets:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout PortalSeller
+        uses: actions/checkout@v4
+
+      - name: Copy marketplace assets
+        run: |
+          set -e
+          mkdir -p demoaja/assets/marketplace
+
+          for file in blibli.png lazada.png shopee.png tiktok-shop.png toco.png tokopedia.png; do
+            curl -L --fail --silent --show-error               "https://raw.githubusercontent.com/sellerbooks/sellerbooks.github.io/main/assets/marketplace/$file"               -o "demoaja/assets/marketplace/$file"
+          done
+
+      - name: Commit copied assets
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add demoaja/assets/marketplace
+          if git diff --cached --quiet; then
+            echo "No asset changes."
+            exit 0
+          fi
+          git commit -m "Copy SellerBooks marketplace assets [skip ci]"
+          git push
