@@ -15639,7 +15639,10 @@ document.addEventListener("click",function(event){
        Yang diblokir hanya aksi import/pemrosesan file setelah halaman terbuka.
     */
     const navOnclick = String(button.getAttribute("onclick") || "").toLowerCase();
-    if(button.classList.contains("menu-item") && /showview\\(['"]import['"]/.test(navOnclick)){
+    if(
+        button.classList.contains("menu-item") &&
+        navOnclick.indexOf("showview('import'") !== -1
+    ){
         return;
     }
 
