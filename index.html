@@ -38,5 +38,10 @@ document.getElementById('contactOpen').addEventListener('click',e=>{e.preventDef
 document.getElementById('contactClose').addEventListener('click',()=>contactModal.classList.remove('show'));
 contactModal.addEventListener('click',e=>{if(e.target===contactModal)contactModal.classList.remove('show')});
 document.addEventListener('keydown',e=>{if(e.key==='Escape')contactModal.classList.remove('show')});
+
+/* Buka Customer Service otomatis saat URL dipanggil dari layanan eksternal. */
+if(new URLSearchParams(window.location.search).get('customer-service') === '1'){
+  contactModal.classList.add('show');
+}
 </script>
 </body></html>
