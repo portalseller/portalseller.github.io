@@ -15442,7 +15442,7 @@ function sellerBooksApplyDemoReadOnly(){
         banner = document.createElement("div");
         banner.id = "sellerBooksDemoBanner";
         banner.innerHTML =
-            '<span>👁️ MODE DEMO • READ ONLY</span>' +
+            '<span>👁️ MODE DEMO</span>' +
             '<button type="button" onclick="sellerBooksExitDemoMode()">Keluar Demo</button>';
         document.body.appendChild(banner);
     }
@@ -15489,7 +15489,7 @@ function sellerBooksApplyDemoReadOnly(){
         ){
             button.setAttribute("data-demo-blocked","1");
             button.setAttribute("aria-disabled","true");
-            button.title = "Mode Demo — Read Only";
+            button.title = "Mode Demo";
         }
     });
 
@@ -15525,7 +15525,7 @@ document.addEventListener("click",function(event){
     if(mutating){
         event.preventDefault();
         event.stopImmediatePropagation();
-        sellerBooksAlert("👁️ Mode Demo aktif. Data hanya dapat dilihat (Read Only).");
+        sellerBooksAlert("👁️ Mode Demo aktif.");
         return false;
     }
 },true);
