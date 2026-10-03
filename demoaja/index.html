@@ -15634,7 +15634,16 @@ document.addEventListener("click",function(event){
         return;
     }
 
-    const onclick = String(button.getAttribute("onclick") || "").toLowerCase();
+    /*
+       Navigasi menuju halaman Import Penjualan tetap boleh dijalankan.
+       Yang diblokir hanya aksi import/pemrosesan file setelah halaman terbuka.
+    */
+    const navOnclick = String(button.getAttribute("onclick") || "").toLowerCase();
+    if(button.classList.contains("menu-item") && /showview\\(['"]import['"]/.test(navOnclick)){
+        return;
+    }
+
+    const onclick = navOnclick;
     const id = String(button.id || "").toLowerCase();
     const label = String(button.textContent || "").trim().toLowerCase();
 
