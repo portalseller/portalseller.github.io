@@ -31647,7 +31647,7 @@ function getSellerBooksSettings(){
                 ? saved
                 : {};
 
-        return {
+        const settings = {
             ...DEFAULT_SELLERBOOKS_SETTINGS,
             ...normalizedSaved,
             exchangeRates: {
@@ -31658,6 +31658,17 @@ function getSellerBooksSettings(){
                     : {})
             }
         };
+
+        /*
+           MODE DEMO:
+           Biaya packing default demo = Rp1.000 per order.
+           Tidak mengubah nilai default akun/user normal.
+        */
+        if(sellerBooksIsDemoMode()){
+            settings.packingCost = 1000;
+        }
+
+        return settings;
     }catch(error){
         return {
             ...DEFAULT_SELLERBOOKS_SETTINGS
