@@ -15625,6 +15625,15 @@ document.addEventListener("click",function(event){
         return;
     }
 
+    /*
+       Pada Demo, halaman Import Penjualan tetap boleh dibuka.
+       Tombol "Pilih File" juga boleh membuka file picker, tetapi
+       pemrosesan file akan dihentikan oleh analyzeSalesFile().
+    */
+    if(button.closest("#import") && button.closest(".import-upload-box")){
+        return;
+    }
+
     const onclick = String(button.getAttribute("onclick") || "").toLowerCase();
     const id = String(button.id || "").toLowerCase();
     const label = String(button.textContent || "").trim().toLowerCase();
@@ -26733,6 +26742,17 @@ ANALYZE FILE
 
 async function analyzeSalesFile(input){
 
+    /*
+       Demo tetap bisa membuka halaman Import Penjualan,
+       tetapi upload/proses file tidak dijalankan.
+    */
+    if(sellerBooksIsDemoMode()){
+        if(input){
+            input.value = "";
+        }
+        sellerBooksAlert("👁️ Mode Demo aktif.");
+        return;
+    }
 
     const file = input.files[0];
 
@@ -28009,6 +28029,11 @@ function resetSalesImport(){
 ===================================================== */
 
 function continueSalesImport(){
+
+    if(sellerBooksIsDemoMode()){
+        sellerBooksAlert("👁️ Mode Demo aktif.");
+        return;
+    }
 
     if(!currentSalesImport){
 
