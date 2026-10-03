@@ -10082,7 +10082,7 @@ document.addEventListener(
 <button
     type="button"
     class="logout-button"
-    onclick="logoutSellerBooks()"
+    onclick="sellerBooksDemoLogoutGuard()"
 >
     🚪 <span>Logout</span>
 </button>
@@ -15693,6 +15693,21 @@ document.addEventListener("submit",function(event){
     sellerBooksAlert("👁️ Mode Demo aktif. Form tidak dapat mengubah data.");
     return false;
 },true);
+
+function sellerBooksDemoLogoutGuard(){
+    if(typeof sellerBooksIsDemoMode === "function" && sellerBooksIsDemoMode()){
+        if(typeof sellerBooksAlert === "function"){
+            sellerBooksAlert("👁️ Mode Demo aktif. Untuk keluar, gunakan tombol \"Keluar Demo\" di pojok kanan atas.");
+        }
+        return false;
+    }
+
+    if(typeof logoutSellerBooks === "function"){
+        return logoutSellerBooks();
+    }
+
+    return false;
+}
 
 function sellerBooksEnterDemoMode(){
     try{
