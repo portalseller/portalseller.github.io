@@ -9749,10 +9749,11 @@ document.addEventListener(
 
                 <button
                     type="button"
-                    class="demo-button"
+                    class="google-button"
                     onclick="sellerBooksEnterDemoMode()"
+                    style="margin-top:12px;"
                 >
-                    👁️ Lihat Demo SellerBooks
+                    🔐 Masuk dengan Google
                 </button>
 
                 <div class="security-info">
@@ -15690,6 +15691,14 @@ function sellerBooksEnterDemoMode(){
 
     if(typeof updateDashboardByPeriod === "function"){
         updateDashboardByPeriod();
+    }
+
+    /* Tombol "Masuk dengan Google" pada halaman publik Demo
+       membuka lingkungan Demo tanpa melakukan autentikasi Google. */
+    if(typeof sellerBooksAlert === "function"){
+        setTimeout(function(){
+            sellerBooksAlert("👁️ Mode Demo aktif.");
+        },80);
     }
 }
 
