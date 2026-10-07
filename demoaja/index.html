@@ -17945,149 +17945,102 @@ function getMarketplaceLogoHTML(marketplace){
 
 function renderMarketplaces(){
 
-    const grid =
-        document.getElementById("marketplaceGrid");
-
-
-    const count =
-        document.getElementById("marketplaceCount");
-
+    const grid = document.getElementById("marketplaceGrid");
+    const count = document.getElementById("marketplaceCount");
 
     if(!grid) return;
 
-
-    count.innerText =
-        marketplaces.length + " Marketplace";
-
+    if(count){
+        count.textContent = sellerBooksMarketplaceCountText(marketplaces.length);
+    }
 
     grid.innerHTML = "";
 
-
     marketplaces.forEach(function(marketplace){
 
-        const statusText =
-            marketplace.status === "active"
+        const isActive = marketplace.status === "active";
+        const statusText = isActive
             ? sellerBooksMarketplaceText("active")
             : sellerBooksMarketplaceText("inactive");
 
+        const statusClass = isActive ? "active" : "inactive";
 
-        const statusClass =
-            marketplace.status === "active"
-            ? "active"
-            : "inactive";
+        const card = document.createElement("div");
+        card.className = "marketplace-card";
 
-
-        grid.innerHTML += `
-
-        <div class="marketplace-card">
-
+        card.innerHTML = `
             <div class="marketplace-card-top">
-
                 <div class="marketplace-card-icon">
-
                     ${getMarketplaceLogoHTML(marketplace)}
-
                 </div>
 
-
-                <div style="
-                    display:flex;
-                    align-items:center;
-                    gap:8px;
-                ">
-
+                <div style="display:flex;align-items:center;gap:8px;">
                     <span class="status ${statusClass}">
-
                         ${statusText}
-
                     </span>
 
-
                     <button
+                        type="button"
                         class="marketplace-more"
-                        onclick="editMarketplace('${marketplace.id}')"
+                        onclick="editMarketplace('${String(marketplace.id).replace(/'/g,"\\'")}')"
+                        title="${sellerBooksMarketplaceText("more")}"
+                        aria-label="${sellerBooksMarketplaceText("more")}"
                     >
                         ⋮
                     </button>
-
                 </div>
-
             </div>
 
-
-            <h3>
-
-                ${marketplace.name}
-
-            </h3>
-
+            <h3>${escapeHtml(marketplace.name)}</h3>
 
             <p>
-
-                ${
-                    marketplace.status === "active"
+                ${isActive
                     ? sellerBooksMarketplaceText("activeReady")
-                    : sellerBooksMarketplaceText("inactiveUnused")
-                }
-
-
+                    : sellerBooksMarketplaceText("inactiveUnused")}
             </p>
-
 
             <div class="marketplace-card-actions">
 
-
                 <button
+                    type="button"
                     class="card-button primary"
-                    onclick="goToStores('${marketplace.id}')"
+                    onclick="goToStores('${String(marketplace.id).replace(/'/g,"\\'")}')"
                 >
-
                     ${sellerBooksMarketplaceText("manageStores")}
-
                 </button>
 
-
                 <button
+                    type="button"
                     class="card-button secondary"
-                    onclick="toggleMarketplace('${marketplace.id}')"
+                    onclick="toggleMarketplace('${String(marketplace.id).replace(/'/g,"\\'")}')"
                 >
-
-                    ${
-                        marketplace.status === "active"
+                    ${isActive
                         ? sellerBooksMarketplaceText("disable")
-                        : sellerBooksMarketplaceText("enable")
-                    }
-
+                        : sellerBooksMarketplaceText("enable")}
                 </button>
 
                 <button
+                    type="button"
                     class="card-button"
                     style="background:#fef2f2;color:#dc2626;"
-                    onclick="deleteMarketplace('${marketplace.id}')"
+                    onclick="deleteMarketplace('${String(marketplace.id).replace(/'/g,"\\'")}')"
                 >
-
-                    Hapus
-
+                    ${sellerBooksMarketplaceText("delete")}
                 </button>
 
-
             </div>
-
-
-        </div>
-
         `;
 
+        grid.appendChild(card);
     });
-renderMarketplacePerformance();
 
-/* UPDATE MODUL AKUN TOKO */
+    renderMarketplacePerformance();
 
-if(typeof renderStores === "function"){
+    if(typeof renderStores === "function"){
+        renderStores();
+    }
 
-    renderStores();
-
-}
+    sellerBooksApplyMarketplaceLanguage();
 }
 
 /* =====================================================
