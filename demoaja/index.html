@@ -21466,14 +21466,14 @@ function sellerBooksStartIntegrationRealtime(){
 
 function renderStores(skipIntegrationRefresh){
 
-    // Pada Mode Demo, gunakan data toko demo langsung agar
-    // halaman Akun Toko tidak bergantung pada Local Storage akun asli
-    // atau status integrasi Supabase.
+    // Mode Demo tetap memakai data toko demo.
     if(sellerBooksIsDemoMode()){
         marketplaces = sellerBooksGetDemoMarketplaces();
         stores = sellerBooksGetDemoStores();
         skipIntegrationRefresh = true;
     }
+
+
 
     // Muat status integrasi dari Supabase saat render normal.
     // Render ulang dari refreshStoreIntegrationStates(true) memakai
@@ -21518,7 +21518,7 @@ function renderStores(skipIntegrationRefresh){
 
     /*
        HANYA TAMPILKAN TOKO
-       DARI MARKETPLACE YANG AKTIF
+       DARI ${sellerBooksStoreText("marketplace")} YANG AKTIF
     */
 
     let visibleStores =
@@ -21569,10 +21569,7 @@ function renderStores(skipIntegrationRefresh){
 
     if(count){
 
-        count.innerText =
-
-            visibleStores.length +
-            " Akun Toko";
+        count.innerText = sellerBooksStoreCountText(visibleStores.length);
 
     }
 
@@ -21599,15 +21596,14 @@ function renderStores(skipIntegrationRefresh){
 
                 <h3>
 
-                    Belum Ada Akun Toko
+                    ${sellerBooksStoreText("noStoresTitle")}
 
                 </h3>
 
 
                 <p>
 
-                    Tambahkan akun toko dari marketplace
-                    yang aktif untuk mulai mengelola bisnis.
+                    ${sellerBooksStoreText("noStoresText")}
 
                 </p>
 
@@ -21645,9 +21641,9 @@ function renderStores(skipIntegrationRefresh){
 
             store.status === "active"
 
-            ? "Aktif"
+            ? sellerBooksStoreText("active")
 
-            : "Tidak Aktif";
+            : sellerBooksStoreText("inactive");
 
 
         const statusClass =
@@ -21665,7 +21661,7 @@ function renderStores(skipIntegrationRefresh){
         const integrationStatusHtml = isIntegrated
             ? `
                 <div class="store-integration-success">
-                    ✓ Sudah terintegrasi sukses
+                    ✓ ${sellerBooksStoreText("activeIntegrated")}
                 </div>
               `
             : "";
@@ -21693,9 +21689,9 @@ function renderStores(skipIntegrationRefresh){
                         type="button"
                         class="store-action-button store-integrate-button"
                         onclick="syncTikTokOrdersNow('${store.id}')"
-                        title="Tarik order TikTok Shop dan hitung SKU + QTY"
+                        title="${sellerBooksStoreText("syncTikTokTitle")}"
                     >
-                        🔄 Tarik Order
+                        🔄 ${sellerBooksStoreText("syncOrders")}
                     </button>
                 </div>`;
         }else if(isShopeeStore){
@@ -21705,9 +21701,9 @@ function renderStores(skipIntegrationRefresh){
                         type="button"
                         class="store-action-button store-integrate-button"
                         onclick="syncShopeeOrdersNow('${store.id}')"
-                        title="Tarik order Shopee"
+                        title="${sellerBooksStoreText("syncShopeeTitle")}"
                     >
-                        🔄 Tarik Order
+                        🔄 ${sellerBooksStoreText("syncOrders")}
                     </button>
                 </div>`;
         }else if(isLazadaStore){
@@ -21717,9 +21713,9 @@ function renderStores(skipIntegrationRefresh){
                         type="button"
                         class="store-action-button store-integrate-button"
                         onclick="syncLazadaOrdersNow('${store.id}')"
-                        title="Tarik order Lazada"
+                        title="${sellerBooksStoreText("syncLazadaTitle")}"
                     >
-                        🔄 Tarik Order
+                        🔄 ${sellerBooksStoreText("syncOrders")}
                     </button>
                 </div>`;
         }
@@ -21730,9 +21726,9 @@ function renderStores(skipIntegrationRefresh){
                     type="button"
                     class="store-action-button store-disconnect-button"
                     onclick="disconnectStoreAccount('${store.id}')"
-                    title="Copot integrasi akun toko"
+                    title="${sellerBooksStoreText("disconnectIntegration")}"
                 >
-                    ⛓ Copot Integrasi
+                    ⛓ ${sellerBooksStoreText("disconnectIntegration")}
                 </button>
                 ${orderSyncButtonHtml}
               `
@@ -21742,7 +21738,7 @@ function renderStores(skipIntegrationRefresh){
                     class="store-action-button store-integrate-button"
                     onclick="integrateStoreAccount('${store.id}')"
                 >
-                    🔗 Integrasikan Akun
+                    🔗 ${sellerBooksStoreText("manageIntegration")}
                 </button>
               `;
 
@@ -21804,7 +21800,7 @@ function renderStores(skipIntegrationRefresh){
                     ${
                         store.description
                         ? store.description
-                        : "Belum ada keterangan toko."
+                        : sellerBooksStoreText("noDescription")
                     }
 
                 </div>
@@ -21816,7 +21812,7 @@ function renderStores(skipIntegrationRefresh){
 
                     <div class="store-info-item">
 
-                        KODE TOKO
+                        ${sellerBooksStoreText("storeCode")}
 
                         <strong>
 
@@ -21834,7 +21830,7 @@ function renderStores(skipIntegrationRefresh){
 
                     <div class="store-info-item">
 
-                        MARKETPLACE
+                        ${sellerBooksStoreText("marketplace")}
 
                         <strong>
 
@@ -21845,7 +21841,7 @@ function renderStores(skipIntegrationRefresh){
                     </div>
 <div class="store-info-item">
 
-    BIAYA ADMIN
+    ${sellerBooksStoreText("adminFee")}
 
     <strong>
         ${
@@ -21880,8 +21876,8 @@ function renderStores(skipIntegrationRefresh){
 
                         ${
                             store.status === "active"
-                            ? "Nonaktifkan"
-                            : "Aktifkan"
+                            ? sellerBooksStoreText("disable")
+                            : sellerBooksStoreText("enable")
                         }
 
                     </button>
@@ -21895,7 +21891,7 @@ function renderStores(skipIntegrationRefresh){
                         onclick="editStore('${store.id}')"
                     >
 
-                        ✏️ Edit
+                        ✏️ ${sellerBooksStoreText("edit")}
 
                     </button>
 
