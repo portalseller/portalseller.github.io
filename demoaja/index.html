@@ -33685,7 +33685,7 @@ const SELLERBOOKS_LOGIN_LANGUAGE_KEY="sb_login_language";
 const SELLERBOOKS_LOGIN_LANGUAGE_TOUCHED_KEY="sb_login_language_touched";
 const SELLERBOOKS_SESSION_LANGUAGE_KEY="sb_session_language";
 
-function sellerBooksLoadGlobalLanguage(){
+async function sellerBooksLoadGlobalLanguage(){
     /*
        Jangan pernah membaca Supabase untuk menimpa pilihan Login yang
        sedang dikunci pada sesi ini. Ini penting karena ada beberapa
