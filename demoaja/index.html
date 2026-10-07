@@ -17062,6 +17062,8 @@ function sellerBooksApplyDetailsLanguage(){
         topSubtitle.textContent=t("pageSubtitle");
     }
     updateProductAnalysisFilterInfo();
+    /* Render ulang setelah bahasa diterapkan agar status/action/pagination ikut bahasa aktif. */
+    if(typeof renderProductAnalysis === "function") renderProductAnalysis();
 }
 
 
