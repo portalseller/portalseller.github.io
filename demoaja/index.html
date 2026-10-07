@@ -17686,19 +17686,24 @@ function showView(viewId, button, saveHistory = true){
        menggunakan fallback bahasa ID sehingga harus disinkronkan
        ulang dari sellerBooksCostText().
     */
-    if(
-        viewId === "costs" &&
-        typeof sellerBooksCostText === "function"
-    ){
+    /*
+       FINAL TOPBAR SYNC
+       Jalankan paling akhir setelah seluruh module language/render
+       selesai agar pageData ID tidak dapat menimpa bahasa aktif.
+    */
+    if(typeof sellerBooksCurrentLanguage === "function"){
+        const activeLanguage = sellerBooksCurrentLanguage();
         const topTitle = document.getElementById("topTitle");
         const topSubtitle = document.getElementById("topSubtitle");
 
-        if(topTitle){
-            topTitle.textContent = sellerBooksCostText("pageTitle");
-        }
-
-        if(topSubtitle){
-            topSubtitle.textContent = sellerBooksCostText("pageSubtitle");
+        if(viewId === "costs" && topTitle && topSubtitle){
+            if(activeLanguage === "en"){
+                topTitle.textContent = "Other Costs";
+                topSubtitle.textContent = "Record additional costs that affect your business profit.";
+            }else{
+                topTitle.textContent = "Biaya Lain";
+                topSubtitle.textContent = "Catat biaya tambahan yang mempengaruhi laba bisnis.";
+            }
         }
     }
 
