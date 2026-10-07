@@ -9849,6 +9849,7 @@ document.addEventListener(
 
                 <a
                     class="login-home-button"
+                    id="loginHomeButton"
                     href="https://portalseller.github.io"
                     aria-label="Kembali ke Beranda SellerBooks"
                 >
@@ -32010,7 +32011,8 @@ function sellerBooksLoginText(key){
             description:"Masuk menggunakan akun Google untuk mengakses SellerBooks.",
             google:"Masuk dengan Google",
             securityTitle:"Data bisnis Anda terlindungi",
-            securityDescription:"Setiap pengguna hanya dapat mengakses data bisnis yang memiliki izin untuknya."
+            securityDescription:"Setiap pengguna hanya dapat mengakses data bisnis yang memiliki izin untuknya.",
+            home:"Kembali ke Beranda"
         },
         en:{
             language:"Language",
@@ -32024,7 +32026,8 @@ function sellerBooksLoginText(key){
             description:"Sign in with your Google account to access SellerBooks.",
             google:"Sign in with Google",
             securityTitle:"Your business data is protected",
-            securityDescription:"Each user can only access business data they are authorized to access."
+            securityDescription:"Each user can only access business data they are authorized to access.",
+            home:"Back to Home"
         }
     };
     return translations[language]?.[key] ?? translations.id[key] ?? key;
@@ -32055,6 +32058,15 @@ function sellerBooksApplyLoginLanguage(){
     setText("loginGoogleText","google");
     setText("loginSecurityTitle","securityTitle");
     setText("loginSecurityDescription","securityDescription");
+
+    const homeButton=document.getElementById("loginHomeButton");
+    if(homeButton){
+        homeButton.textContent="← " + sellerBooksLoginText("home");
+        homeButton.setAttribute(
+            "aria-label",
+            sellerBooksLoginText("home")
+        );
+    }
 
     document.documentElement.lang = language === "en" ? "en" : "id-ID";
 }
