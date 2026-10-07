@@ -15656,7 +15656,7 @@ function sellerBooksApplyDemoReadOnly(){
         banner.id = "sellerBooksDemoBanner";
         banner.innerHTML =
             '<span>👁️ MODE DEMO</span>' +
-            '<button type="button" onclick="sellerBooksExitDemoMode()">Exit Demo</button>';
+            '<button type="button" onclick="sellerBooksExitDemoMode()">${sellerBooksCurrentLanguage()==="en" ? "Exit Demo" : "Keluar Demo"}</button>';
         document.body.appendChild(banner);
     }
 
@@ -15812,7 +15812,7 @@ function sellerBooksEnterDemoMode(){
        membuka lingkungan Demo tanpa melakukan autentikasi Google. */
     if(typeof sellerBooksAlert === "function"){
         setTimeout(function(){
-            sellerBooksAlert("👁️ Mode Demo aktif.");
+            sellerBooksAlert(sellerBooksCurrentLanguage()==="en" ? "👁️ Demo mode is active." : "👁️ Mode Demo aktif.");
         },80);
     }
 }
@@ -26898,7 +26898,7 @@ async function analyzeSalesFile(input){
         if(input){
             input.value = "";
         }
-        sellerBooksAlert("👁️ Mode Demo aktif.");
+        sellerBooksAlert(sellerBooksCurrentLanguage()==="en" ? "👁️ Demo mode is active." : "👁️ Mode Demo aktif.");
         return;
     }
 
@@ -28179,7 +28179,7 @@ function resetSalesImport(){
 function continueSalesImport(){
 
     if(sellerBooksIsDemoMode()){
-        sellerBooksAlert("👁️ Mode Demo aktif.");
+        sellerBooksAlert(sellerBooksCurrentLanguage()==="en" ? "👁️ Demo mode is active." : "👁️ Mode Demo aktif.");
         return;
     }
 
@@ -32209,7 +32209,7 @@ function handleSettingsLogoUpload(input){
     }
 
     if(!sellerBooksAuthUser || !sellerBooksCloudReady){
-        sellerBooksAlert("👁️ Mode Demo aktif.");
+        sellerBooksAlert(sellerBooksCurrentLanguage()==="en" ? "👁️ Demo mode is active." : "👁️ Mode Demo aktif.");
         input.value = "";
         return;
     }
