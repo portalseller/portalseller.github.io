@@ -17675,6 +17675,14 @@ function showView(viewId, button, saveHistory = true){
         sellerBooksApplyAllLanguage();
     }
 
+    /* Final page topbar sync after every module language pass. */
+    if(viewId === "costs" && typeof sellerBooksCostText === "function"){
+        const topTitle = document.getElementById("topTitle");
+        const topSubtitle = document.getElementById("topSubtitle");
+        if(topTitle) topTitle.textContent = sellerBooksCostText("pageTitle");
+        if(topSubtitle) topSubtitle.textContent = sellerBooksCostText("pageSubtitle");
+    }
+
 
     /* =========================================
        TUTUP SIDEBAR DI HP
