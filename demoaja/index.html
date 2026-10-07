@@ -8963,10 +8963,10 @@ async function downloadReportPDF(){
         },15000);
 
         sellerBooksAlert(
-            "✅ PDF laporan berhasil dibuat.\n\n" +
-            "Periode: " + periodLabel + "\n" +
-            "Marketplace: " + marketplaceLabel + "\n" +
-            "Akun Toko: " + storeLabel
+            "✅ " + sellerBooksReportsText("pdfSuccess") + "\n\n" +
+            sellerBooksReportsText("pdfPeriod") + ": " + periodLabel + "\n" +
+            sellerBooksReportsText("pdfMarketplace") + ": " + marketplaceLabel + "\n" +
+            sellerBooksReportsText("pdfStoreAccount") + ": " + storeLabel
         );
 
     }catch(error){
@@ -8977,11 +8977,11 @@ async function downloadReportPDF(){
         );
 
         sellerBooksAlert(
-            "❌ PDF gagal dibuat.\n\n" +
+            "❌ " + sellerBooksReportsText("pdfFailed") + "\n\n" +
             (
                 error && error.message
                     ? error.message
-                    : "Silakan coba lagi."
+                    : sellerBooksReportsText("pdfTryAgain")
             )
         );
 
@@ -34999,7 +34999,13 @@ function sellerBooksReportsText(key){
             deletedCount:"data import telah dihapus.",
             restoredStock:"Stok dikembalikan:",
             pcs:"pcs.",
-            noStockRestore:"Tidak ada stok yang perlu dikembalikan."
+            noStockRestore:"Tidak ada stok yang perlu dikembalikan.",
+            pdfSuccess:"PDF laporan berhasil dibuat.",
+            pdfFailed:"PDF gagal dibuat.",
+            pdfPeriod:"Periode",
+            pdfMarketplace:"Marketplace",
+            pdfStoreAccount:"Akun Toko",
+            pdfTryAgain:"Silakan coba lagi."
         },
         en:{
             filterTitle:"Report Filters",
@@ -35100,7 +35106,13 @@ function sellerBooksReportsText(key){
             deletedCount:"import records have been deleted.",
             restoredStock:"Stock restored:",
             pcs:"pcs.",
-            noStockRestore:"No stock needs to be restored."
+            noStockRestore:"No stock needs to be restored.",
+            pdfSuccess:"PDF report generated successfully.",
+            pdfFailed:"PDF generation failed.",
+            pdfPeriod:"Period",
+            pdfMarketplace:"Marketplace",
+            pdfStoreAccount:"Store Account",
+            pdfTryAgain:"Please try again."
         }
     };
 
