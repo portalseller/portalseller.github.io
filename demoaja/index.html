@@ -24542,6 +24542,96 @@ const stock = Math.max(
    DENGAN DROPDOWN STATUS
 ===================================================== */
 
+async function sellerBooksDownloadExcelBlob(blob,fileName){
+
+    if(!blob || !blob.size){
+        throw new Error("File Excel kosong.");
+    }
+
+    const isMobile=
+        /Android|iPhone|iPad|iPod/i.test(
+            navigator.userAgent || ""
+        );
+
+    if(
+        isMobile &&
+        typeof navigator.share==="function" &&
+        typeof File!=="undefined" &&
+        typeof navigator.canShare==="function"
+    ){
+
+        try{
+
+            const file=new File(
+                [blob],
+                fileName,
+                {type:blob.type}
+            );
+
+            if(navigator.canShare({files:[file]})){
+
+                await navigator.share({
+                    files:[file],
+                    title:fileName
+                });
+
+                return;
+
+            }
+
+        }catch(shareError){
+
+            console.warn(
+                "Native share export gagal, lanjut download:",
+                shareError
+            );
+
+        }
+
+    }
+
+    const url=URL.createObjectURL(blob);
+    const anchor=document.createElement("a");
+
+    anchor.href=url;
+    anchor.download=fileName;
+    anchor.setAttribute("download",fileName);
+    anchor.rel="noopener";
+    anchor.style.position="fixed";
+    anchor.style.left="-9999px";
+    anchor.style.top="0";
+    anchor.style.width="1px";
+    anchor.style.height="1px";
+    anchor.style.opacity="0";
+
+    document.body.appendChild(anchor);
+
+    try{
+        anchor.click();
+    }finally{
+
+        setTimeout(function(){
+
+            try{
+                anchor.remove();
+            }catch(e){
+                try{
+                    document.body.removeChild(anchor);
+                }catch(e2){}
+            }
+
+            try{
+                URL.revokeObjectURL(url);
+            }catch(e3){}
+
+        },3000);
+
+    }
+
+}
+
+
+
 async function exportProducts(){
 
     try{
