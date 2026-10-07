@@ -15656,7 +15656,9 @@ function sellerBooksApplyDemoReadOnly(){
         banner.id = "sellerBooksDemoBanner";
         banner.innerHTML =
             '<span>👁️ MODE DEMO</span>' +
-            '<button type="button" onclick="sellerBooksExitDemoMode()">${sellerBooksCurrentLanguage()==="en" ? "Exit Demo" : "Keluar Demo"}</button>';
+            '<button type="button" onclick="sellerBooksExitDemoMode()">' +
+            (sellerBooksCurrentLanguage()==="en" ? "Exit Demo" : "Keluar Demo") +
+            '</button>';
         document.body.appendChild(banner);
     }
 
