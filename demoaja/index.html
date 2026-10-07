@@ -17680,6 +17680,28 @@ function showView(viewId, button, saveHistory = true){
         sellerBooksApplyAllLanguage();
     }
 
+    /*
+       Pastikan topbar mengikuti bahasa aktif setelah seluruh
+       language engine selesai. Khusus Other Costs, pageData
+       menggunakan fallback bahasa ID sehingga harus disinkronkan
+       ulang dari sellerBooksCostText().
+    */
+    if(
+        viewId === "costs" &&
+        typeof sellerBooksCostText === "function"
+    ){
+        const topTitle = document.getElementById("topTitle");
+        const topSubtitle = document.getElementById("topSubtitle");
+
+        if(topTitle){
+            topTitle.textContent = sellerBooksCostText("pageTitle");
+        }
+
+        if(topSubtitle){
+            topSubtitle.textContent = sellerBooksCostText("pageSubtitle");
+        }
+    }
+
     /* =========================================
        TUTUP SIDEBAR DI HP
     ========================================= */
