@@ -15656,7 +15656,7 @@ function sellerBooksApplyDemoReadOnly(){
         banner.id = "sellerBooksDemoBanner";
         banner.innerHTML =
             '<span>👁️ MODE DEMO</span>' +
-            '<button type="button" onclick="sellerBooksExitDemoMode()">Keluar Demo</button>';
+            '<button type="button" onclick="sellerBooksExitDemoMode()">Exit Demo</button>';
         document.body.appendChild(banner);
     }
 
@@ -15759,7 +15759,7 @@ document.addEventListener("click",function(event){
     if(mutating){
         event.preventDefault();
         event.stopImmediatePropagation();
-        sellerBooksAlert("👁️ Mode Demo aktif.");
+        sellerBooksAlert(sellerBooksCurrentLanguage()==="en" ? "👁️ Demo mode is active." : "👁️ Mode Demo aktif.");
         return false;
     }
 },true);
@@ -15768,14 +15768,14 @@ document.addEventListener("submit",function(event){
     if(!sellerBooksIsDemoMode()) return;
     event.preventDefault();
     event.stopImmediatePropagation();
-    sellerBooksAlert("👁️ Mode Demo aktif. Form tidak dapat mengubah data.");
+    sellerBooksAlert(sellerBooksCurrentLanguage()==="en" ? "👁️ Demo mode is active. Forms cannot modify data." : "👁️ Mode Demo aktif. Form tidak dapat mengubah data.");
     return false;
 },true);
 
 function sellerBooksDemoLogoutGuard(){
     if(typeof sellerBooksIsDemoMode === "function" && sellerBooksIsDemoMode()){
         if(typeof sellerBooksAlert === "function"){
-            sellerBooksAlert("👁️ Mode Demo aktif. Untuk keluar, gunakan tombol \"Keluar Demo\" di pojok kanan atas.");
+            sellerBooksAlert(sellerBooksCurrentLanguage()==="en" ? "👁️ Demo mode is active. To exit, use the \"Exit Demo\" button in the top-right corner." : "👁️ Mode Demo aktif. Untuk keluar, gunakan tombol \"Keluar Demo\" di pojok kanan atas.");
         }
         return false;
     }
@@ -18225,7 +18225,7 @@ function sellerBooksRenderDashboardCharts(transactions){
     if(!salesChart || !marketplaceChart) return;
 
     const periodNames = {today:"Hari Ini",yesterday:"Kemarin",week:"Minggu Ini",lastWeek:"Minggu Lalu",month:"Bulan Ini",lastMonth:"Bulan Lalu",last3Months:"3 Bulan Terakhir",year:"Tahun Ini",all:"Semua Periode"};
-    if(info) info.textContent = "Pergerakan penjualan • " + (periodNames[currentDashboardPeriod] || "Hari Ini");
+    if(info) info.textContent = sellerBooksDashboardText("periodMovement") + sellerBooksDashboardPeriodText(currentDashboardPeriod);
 
     const buckets = new Map();
     const marketplaceTotals = new Map();
@@ -19096,7 +19096,7 @@ function renderMarketplacePerformance(){
                             <strong>
                                 ${row.accountCount}
                             </strong>
-                            Akun
+                            ${sellerBooksDashboardText("account")}
                         </td>
 
                         <td>
