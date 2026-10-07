@@ -17676,36 +17676,60 @@ function showView(viewId, button, saveHistory = true){
 
     }
 
-    if(typeof sellerBooksApplyAllLanguage === "function"){
-        sellerBooksApplyAllLanguage();
+    /*
+       Dashboard memakai bahasa akun aktif.
+       Halaman login tetap berada di luar engine i18n.
+    */
+    if(
+        viewId === "dashboard" &&
+        typeof sellerBooksApplyDashboardLanguage === "function"
+    ){
+        sellerBooksApplyDashboardLanguage();
     }
 
-    /*
-       Pastikan topbar mengikuti bahasa aktif setelah seluruh
-       language engine selesai. Khusus Other Costs, pageData
-       menggunakan fallback bahasa ID sehingga harus disinkronkan
-       ulang dari sellerBooksCostText().
-    */
-    /*
-       FINAL TOPBAR SYNC
-       Jalankan paling akhir setelah seluruh module language/render
-       selesai agar pageData ID tidak dapat menimpa bahasa aktif.
-    */
-    if(typeof sellerBooksCurrentLanguage === "function"){
-        const activeLanguage = sellerBooksCurrentLanguage();
-        const topTitle = document.getElementById("topTitle");
-        const topSubtitle = document.getElementById("topSubtitle");
-
-        if(viewId === "costs" && topTitle && topSubtitle){
-            if(activeLanguage === "en"){
-                topTitle.textContent = "Other Costs";
-                topSubtitle.textContent = "Record additional costs that affect your business profit.";
-            }else{
-                topTitle.textContent = "Biaya Lain";
-                topSubtitle.textContent = "Catat biaya tambahan yang mempengaruhi laba bisnis.";
-            }
-        }
+    if(
+        viewId === "marketplace" &&
+        typeof sellerBooksApplyMarketplaceLanguage === "function"
+    ){
+        sellerBooksApplyMarketplaceLanguage();
     }
+
+    if(
+        viewId === "stores" &&
+        typeof sellerBooksApplyStoreLanguage === "function"
+    ){
+        sellerBooksApplyStoreLanguage();
+    }
+
+    if(
+        viewId === "products" &&
+        typeof sellerBooksApplyProductLanguage === "function"
+    ){
+        sellerBooksApplyProductLanguage();
+    }
+
+    if(
+        viewId === "import" &&
+        typeof sellerBooksApplySalesImportLanguage === "function"
+    ){
+        sellerBooksApplySalesImportLanguage();
+    }
+    if(viewId === "costs" && typeof sellerBooksApplyCostLanguage === "function"){
+        sellerBooksApplyCostLanguage();
+    }
+    if(viewId === "productAnalysis" && typeof sellerBooksApplyDetailsLanguage === "function"){
+        sellerBooksApplyDetailsLanguage();
+    }
+    if(viewId === "reports" && typeof sellerBooksApplyReportsLanguage === "function"){
+        sellerBooksApplyReportsLanguage();
+    }
+    if(viewId === "settings" && typeof sellerBooksApplySettingsLanguage === "function"){
+        sellerBooksApplySettingsLanguage();
+    }
+    if(typeof sellerBooksApplyNotificationLanguage === "function"){
+        sellerBooksApplyNotificationLanguage();
+    }
+
 
     /* =========================================
        TUTUP SIDEBAR DI HP
@@ -31077,10 +31101,7 @@ function sellerBooksApplyCostLanguage(){
         const buttons=modal.querySelectorAll(".modal-body .secondary-button,.modal-body .primary-button"); if(buttons[0])buttons[0].textContent=t("cancel"); if(buttons[1])buttons[1].textContent=t("save");
     }
     if(document.getElementById("costs")?.classList.contains("active")){if(topTitle)topTitle.textContent=t("pageTitle");if(topSubtitle)topSubtitle.textContent=t("pageSubtitle");}
-    if(document.getElementById("costs")?.classList.contains("active") && typeof renderCosts==="function"){renderCosts();}
 }
-
-
 
 function renderCosts(){
     /* =====================================================
