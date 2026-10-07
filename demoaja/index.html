@@ -16712,7 +16712,7 @@ function loadProductAnalysisMarketplaceFilter(){
         select.value || "all";
 
     select.innerHTML = `
-        <option value="all">Semua Marketplace</option>
+        <option value="all">${sellerBooksDetailsText("allMarketplaces")}</option>
     `;
 
     let marketplaces = [];
@@ -16765,7 +16765,7 @@ function loadProductAnalysisStoreFilter(){
         storeSelect.value || "all";
 
     storeSelect.innerHTML = `
-        <option value="all">Semua Akun Toko</option>
+        <option value="all">${sellerBooksDetailsText("allStoreAccounts")}</option>
     `;
 
     let stores = [];
@@ -17206,7 +17206,7 @@ function renderProductAnalysis(){
         body.innerHTML = `
             <tr class="analysis-empty-row">
                 <td colspan="11">
-                    Belum ada transaksi pada periode yang dipilih.
+                    ${sellerBooksDetailsText("noTransactions")}
                 </td>
             </tr>
         `;
@@ -17281,8 +17281,8 @@ function renderProductAnalysis(){
 
             const statusText =
                 row.isLoss
-                    ? "⚠️ MINUS"
-                    : "✓ UNTUNG";
+                    ? sellerBooksDetailsText("loss")
+                    : sellerBooksDetailsText("profit");
 
             /*
                Harga Jual = Total Penjualan / QTY.
@@ -17301,12 +17301,12 @@ function renderProductAnalysis(){
                             class="analysis-fix-button"
                             onclick="fixProductFromAnalysis('${String(row.product.id).replace(/'/g,"\\'") }')"
                         >
-                            ✏️ Perbaiki
+                            ${sellerBooksDetailsText("fix")}
                         </button>
                     `
                     : `
                         <span style="font-size:11px;color:#dc2626;">
-                            Belum ada master
+                            ${sellerBooksDetailsText("noMaster")}
                         </span>
                     `;
 
@@ -17347,7 +17347,7 @@ function renderProductAnalysis(){
 
         controlsHtml += `
             <span class="report-transaction-page-info">
-                ${startIndex + 1}-${endIndex} dari ${rows.length}
+                ${startIndex + 1}-${endIndex} ${sellerBooksDetailsText("dateSeparator")} ${rows.length}
             </span>
         `;
 
@@ -17357,7 +17357,7 @@ function renderProductAnalysis(){
                 class="report-transaction-page-button"
                 onclick="goToProductAnalysisPage(${productAnalysisPage - 1})"
                 ${productAnalysisPage <= 1 ? "disabled" : ""}
-                aria-label="Halaman sebelumnya"
+                aria-label="${sellerBooksDetailsText("previous")}"
             >
                 ‹
             </button>
@@ -17449,9 +17449,9 @@ function renderProductAnalysis(){
                 class="report-transaction-page-button"
                 onclick="goToProductAnalysisPage(${productAnalysisPage + 1})"
                 ${productAnalysisPage >= totalPages ? "disabled" : ""}
-                aria-label="Halaman berikutnya"
+                aria-label="${sellerBooksDetailsText("next")}"
             >
-                Next ›
+                ${sellerBooksDetailsText("nextButton")}
             </button>
         `;
 
@@ -17531,21 +17531,21 @@ function updateProductAnalysisFilterInfo(){
         )?.value || "month";
 
     const names = {
-        today:"Hari Ini",
-        yesterday:"Kemarin",
-        week:"Minggu Ini",
-        lastWeek:"Minggu Lalu",
-        month:"Bulan Ini",
-        lastMonth:"Bulan Lalu",
-        last3Months:"3 Bulan Terakhir",
-        year:"Tahun Ini",
-        custom:"Pilih Tanggal",
-        all:"Semua Periode"
+        today:sellerBooksDetailsText("today"),
+        yesterday:sellerBooksDetailsText("yesterday"),
+        week:sellerBooksDetailsText("week"),
+        lastWeek:sellerBooksDetailsText("lastWeek"),
+        month:sellerBooksDetailsText("month"),
+        lastMonth:sellerBooksDetailsText("lastMonth"),
+        last3Months:sellerBooksDetailsText("last3Months"),
+        year:sellerBooksDetailsText("year"),
+        custom:sellerBooksDetailsText("custom"),
+        all:sellerBooksDetailsText("all")
     };
 
     let label =
         names[period] ||
-        "Bulan Ini";
+        sellerBooksDetailsText("month");
 
     const marketplaceSelect =
         document.getElementById("productAnalysisMarketplace");
@@ -17555,11 +17555,11 @@ function updateProductAnalysisFilterInfo(){
 
     const marketplaceLabel =
         marketplaceSelect?.selectedOptions?.[0]?.textContent ||
-        "Semua Marketplace";
+        sellerBooksDetailsText("allMarketplaces");
 
     const storeLabel =
         storeSelect?.selectedOptions?.[0]?.textContent ||
-        "Semua Akun Toko";
+        sellerBooksDetailsText("allStoreAccounts");
 
     if(period === "custom"){
 
@@ -17581,7 +17581,7 @@ function updateProductAnalysisFilterInfo(){
                         ? from.split("-").reverse().join("/")
                         : "..."
                 ) +
-                " s/d " +
+                " " + sellerBooksDetailsText("dateSeparator") + " " +
                 (
                     to
                         ? to.split("-").reverse().join("/")
@@ -17592,11 +17592,11 @@ function updateProductAnalysisFilterInfo(){
     }
 
     info.innerHTML =
-        "Periode: <strong>" +
+        sellerBooksDetailsText("filterPeriod") + ": <strong>" +
         label +
-        "</strong> &nbsp;|&nbsp; Marketplace: <strong>" +
+        "</strong> &nbsp;|&nbsp; " + sellerBooksDetailsText("filterMarketplace") + ": <strong>" +
         escapeHtmlProductAnalysis(marketplaceLabel) +
-        "</strong> &nbsp;|&nbsp; Akun: <strong>" +
+        "</strong> &nbsp;|&nbsp; " + sellerBooksDetailsText("filterStore") + ": <strong>" +
         escapeHtmlProductAnalysis(storeLabel) +
         "</strong>";
 }
