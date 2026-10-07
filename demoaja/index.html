@@ -30996,8 +30996,21 @@ function sellerBooksCostText(key){
 }
 
 function sellerBooksCostCategoryLabel(value){
-    const map={"Iklan":"advertising","Transport":"transport","Operasional":"operations","Lainnya":"other"};
-    const key=map[String(value||"").trim()];
+    const raw=String(value||"").trim().toLowerCase();
+    const map={
+        "iklan":"advertising",
+        "iklan marketplace":"advertising",
+        "promosi":"advertising",
+        "promosi marketplace":"advertising",
+        "advertising":"advertising",
+        "transport":"transport",
+        "transportasi":"transport",
+        "operasional":"operations",
+        "operations":"operations",
+        "lainnya":"other",
+        "other":"other"
+    };
+    const key=map[raw];
     return key ? sellerBooksCostText(key) : String(value||"");
 }
 
@@ -31039,6 +31052,51 @@ function sellerBooksApplyCostLanguage(){
 
 
 function renderCosts(){
+    /* =====================================================
+       OTHER COSTS LANGUAGE — APPLY BEFORE EVERY RENDER
+       Referensi SellerBooks asli; hanya UI text yang disentuh.
+    ===================================================== */
+    (function(){
+        const root=document.getElementById("costs");
+        if(!root || typeof sellerBooksCostText !== "function") return;
+
+        const t=sellerBooksCostText;
+        const header=root.querySelector(".page-header");
+        if(header){
+            const title=header.querySelector("h2");
+            const subtitle=header.querySelector("p");
+            const add=header.querySelector("button");
+            if(title) title.textContent=t("pageTitle");
+            if(subtitle) subtitle.textContent=t("pageSubtitle");
+            if(add) add.textContent="+ "+t("add");
+        }
+
+        const total=root.querySelector("#costTotal");
+        if(total && total.previousElementSibling){
+            total.previousElementSibling.textContent=t("total");
+        }
+
+        const headings=root.querySelectorAll("h3");
+        if(headings[0]) headings[0].textContent=t("listTitle");
+        const listSubtitle=headings[0]?.nextElementSibling;
+        if(listSubtitle) listSubtitle.textContent=t("listSubtitle");
+
+        const headers=root.querySelectorAll("table thead th");
+        [t("date"),t("marketplace"),t("storeAccount"),t("category"),
+         t("description"),t("amount"),t("notes"),t("actions")]
+        .forEach(function(value,index){
+            if(headers[index]) headers[index].textContent=value;
+        });
+
+        const topTitle=document.getElementById("topTitle");
+        const topSubtitle=document.getElementById("topSubtitle");
+        if(root.classList.contains("active")){
+            if(topTitle) topTitle.textContent=t("pageTitle");
+            if(topSubtitle) topSubtitle.textContent=t("pageSubtitle");
+        }
+    })();
+
+
 
     if(sellerBooksIsDemoMode()){
         costs = sellerBooksGetDemoCosts();
