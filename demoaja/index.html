@@ -19553,6 +19553,7 @@ function renderStoreMarketplaceFilter(){
         stores = sellerBooksGetDemoStores();
     }
 
+
     const filter =
 
         document.getElementById(
@@ -19591,7 +19592,7 @@ function renderStoreMarketplaceFilter(){
 
         <option value="all">
 
-            Semua Marketplace
+            ${sellerBooksStoreText("allMarketplaces")}
 
         </option>
 
@@ -19670,7 +19671,7 @@ function renderStoreMarketplaceFilter(){
                 <span style="font-size:15px;">▦</span>
             </span>
             <span class="store-marketplace-custom-label">
-                Semua Marketplace
+                ${sellerBooksStoreText("allMarketplaces")}
             </span>
         `;
 
@@ -19686,7 +19687,7 @@ function renderStoreMarketplaceFilter(){
                 <span style="font-size:15px;">▦</span>
             </span>
             <span class="store-marketplace-custom-label">
-                Semua Marketplace
+                ${sellerBooksStoreText("allMarketplaces")}
             </span>
         </button>
 
