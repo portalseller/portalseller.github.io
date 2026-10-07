@@ -33848,8 +33848,12 @@ function sellerBooksSetLoginLanguage(value){
     sellerBooksGlobalLanguageReady = true;
 
     /*
-       Terapkan engine bahasa lama secara penuh, bukan hanya halaman Login.
+       Terapkan Login terlebih dahulu agar perubahan ID/EN langsung terlihat.
+       Setelah itu jalankan master engine untuk seluruh halaman SellerBooks.
     */
+    if(typeof sellerBooksApplyLoginLanguage === "function"){
+        sellerBooksApplyLoginLanguage();
+    }
     sellerBooksApplyAllLanguage();
 
     return language;
