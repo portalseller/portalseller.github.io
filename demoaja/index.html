@@ -16496,6 +16496,11 @@ const pageData = {
     settings:{
         title:"Pengaturan",
         subtitle:"Pengaturan SellerBooks"
+    },
+
+    sbPiutangView:{
+        title:"Piutang",
+        subtitle:"Catat dan pantau total piutang secara terpisah dari laba bisnis."
     }
 
 };
@@ -17674,15 +17679,6 @@ function showView(viewId, button, saveHistory = true){
     if(typeof sellerBooksApplyAllLanguage === "function"){
         sellerBooksApplyAllLanguage();
     }
-
-    /* Final page topbar sync after every module language pass. */
-    if(viewId === "costs" && typeof sellerBooksCostText === "function"){
-        const topTitle = document.getElementById("topTitle");
-        const topSubtitle = document.getElementById("topSubtitle");
-        if(topTitle) topTitle.textContent = sellerBooksCostText("pageTitle");
-        if(topSubtitle) topSubtitle.textContent = sellerBooksCostText("pageSubtitle");
-    }
-
 
     /* =========================================
        TUTUP SIDEBAR DI HP
@@ -33446,8 +33442,9 @@ document.addEventListener(
 
         const title=document.getElementById("topTitle");
         const subtitle=document.getElementById("topSubtitle");
-        if(title) title.textContent="Piutang";
-        if(subtitle) subtitle.textContent="Catat dan pantau piutang bisnis Anda";
+        if(title) title.textContent=window.sbPiutangText("pageTitle");
+        if(subtitle) subtitle.textContent=window.sbPiutangText("pageSubtitle");
+        if(typeof window.sbPiutangApplyLanguage === "function") window.sbPiutangApplyLanguage();
 
         if(typeof window.sbPiutangCloudRender === "function"){
             window.sbPiutangCloudRender();
