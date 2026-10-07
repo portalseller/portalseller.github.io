@@ -12471,7 +12471,7 @@ document.addEventListener(
             <div style="flex:1;min-width:260px;">
                 <h3 style="margin:0 0 5px 0;">Hapus Laporan</h3>
                 <p style="margin:0;color:#64748b;font-size:13px;">
-                    Hapus data import penjualan secara spesifik berdasarkan tanggal, marketplace, dan akun toko.
+                    ${sellerBooksMarketplaceText("delete")} data import penjualan secara spesifik berdasarkan tanggal, marketplace, dan akun toko.
                 </p>
             </div>
 
@@ -17967,8 +17967,8 @@ function renderMarketplaces(){
 
         const statusText =
             marketplace.status === "active"
-            ? "Aktif"
-            : "Tidak Aktif";
+            ? sellerBooksMarketplaceText("active")
+            : sellerBooksMarketplaceText("inactive");
 
 
         const statusClass =
@@ -18026,8 +18026,8 @@ function renderMarketplaces(){
 
                 ${
                     marketplace.status === "active"
-                    ? "Marketplace aktif dan siap digunakan"
-                    : "Marketplace belum digunakan"
+                    ? sellerBooksMarketplaceText("activeReady")
+                    : sellerBooksMarketplaceText("inactiveUnused")
                 }
 
 
@@ -18042,7 +18042,7 @@ function renderMarketplaces(){
                     onclick="goToStores('${marketplace.id}')"
                 >
 
-                    Kelola Toko
+                    ${sellerBooksMarketplaceText("manageStores")}
 
                 </button>
 
@@ -18054,8 +18054,8 @@ function renderMarketplaces(){
 
                     ${
                         marketplace.status === "active"
-                        ? "Nonaktifkan"
-                        : "Aktifkan"
+                        ? sellerBooksMarketplaceText("disable")
+                        : sellerBooksMarketplaceText("enable")
                     }
 
                 </button>
