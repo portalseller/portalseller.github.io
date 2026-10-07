@@ -9848,6 +9848,7 @@ document.addEventListener(
                 </div>
 
                 <a
+                    id="loginHomeButton"
                     class="login-home-button"
                     href="https://portalseller.github.io"
                     aria-label="Kembali ke Beranda SellerBooks"
@@ -33987,6 +33988,19 @@ function sellerBooksApplyLoginLanguage(){
     setText("loginGoogleText","google");
     setText("loginSecurityTitle","securityTitle");
     setText("loginSecurityDescription","securityDescription");
+
+    const homeButton=document.getElementById("loginHomeButton");
+    if(homeButton){
+        homeButton.textContent = language === "en"
+            ? "← Back to Home"
+            : "← Kembali ke Beranda";
+        homeButton.setAttribute(
+            "aria-label",
+            language === "en"
+                ? "Back to SellerBooks Home"
+                : "Kembali ke Beranda SellerBooks"
+        );
+    }
 
     document.documentElement.lang = language === "en" ? "en" : "id-ID";
 }
