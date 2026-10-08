@@ -20365,7 +20365,10 @@ async function sellerBooksDispatchExcelToImportPenjualan(queueItem,showResult){
     const packingInput=document.getElementById("packingCostPerOrder");
     if(packingInput){
         const savedPackingCost=sellerBooksStorage.getItem("sellerbooks_packing_unit_cost");
-        packingInput.value=savedPackingCost!==null&&savedPackingCost!==undefined&&String(savedPackingCost)!==""?String(savedPackingCost):"0";
+        const demoPackingCost = sellerBooksIsDemoMode() ? "4500" : null;
+        packingInput.value = demoPackingCost !== null
+            ? demoPackingCost
+            : (savedPackingCost!==null&&savedPackingCost!==undefined&&String(savedPackingCost)!=="" ? String(savedPackingCost) : "0");
     }
 
     const record=saveSalesImportData();
@@ -22647,7 +22650,12 @@ function updateMarketplaceStoreCounts(){
    BIAYA PACKING
    DIHITUNG PER ORDER / IDENTITAS PACKING UNIK
 ===================================================== */
-function getPackingCostPerOrder(){return Number(sellerBooksStorage.getItem("sellerbooks_packing_unit_cost")||0)||0;}
+function getPackingCostPerOrder(){
+    if(sellerBooksIsDemoMode()){
+        return 4500;
+    }
+    return Number(sellerBooksStorage.getItem("sellerbooks_packing_unit_cost")||0)||0;
+}
 function getTotalPackingCost(){const imports=JSON.parse(sellerBooksStorage.getItem("sellerbooks_sales_imports")||"[]");return imports.reduce(function(total,item){return total+Number(item.totalPackingCost||0);},0);}
 
 /* =====================================================
@@ -28667,7 +28675,11 @@ const marketplaceElement=document.getElementById("detectedMarketplaceName");
     if(marketplaceElement) marketplaceElement.value=data.marketplace?data.marketplace+" ✓":"Tidak dikenali";
     populateSalesStoreAccounts();
     const packingInput=document.getElementById("packingCostPerOrder");
-    if(packingInput) packingInput.value=sellerBooksStorage.getItem("sellerbooks_packing_unit_cost")||"";
+    if(packingInput){
+        packingInput.value = sellerBooksIsDemoMode()
+            ? "4500"
+            : (sellerBooksStorage.getItem("sellerbooks_packing_unit_cost")||"");
+    }
     updatePackingCalculation();
 
 document.getElementById(
@@ -32205,11 +32217,11 @@ function getSellerBooksSettings(){
 
         /*
            MODE DEMO:
-           Biaya packing default demo = Rp1.000 per order.
+           Biaya packing default demo = Rp4.500 per order.
            Tidak mengubah nilai default akun/user normal.
         */
         if(sellerBooksIsDemoMode()){
-            settings.packingCost = 1000;
+            settings.packingCost = 4500;
         }
 
         return settings;
