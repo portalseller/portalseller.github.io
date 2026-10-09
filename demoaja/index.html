@@ -17810,6 +17810,20 @@ function showView(viewId, button, saveHistory = true){
     }
 
     /*
+       Hilangkan subtitle kecil di topbar untuk semua halaman selain Dashboard,
+       karena deskripsi sudah tampil lagi di isi halaman.
+       Dashboard tetap mempertahankan subtitle topbar seperti semula.
+    */
+    const topSubtitle = document.getElementById("topSubtitle");
+    if(topSubtitle){
+        topSubtitle.hidden = (viewId !== "dashboard");
+        topSubtitle.setAttribute(
+            "aria-hidden",
+            viewId !== "dashboard" ? "true" : "false"
+        );
+    }
+
+    /*
        Dashboard memakai bahasa akun aktif.
        Halaman login tetap berada di luar engine i18n.
     */
