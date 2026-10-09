@@ -17691,6 +17691,16 @@ function fixProductFromAnalysis(id){
 function showView(viewId, button, saveHistory = true){
 
     /*
+       Tutup sidebar mobile SEGERA saat menu dipilih.
+       Diletakkan sebelum render/i18n agar error di halaman tujuan
+       tidak bisa menggagalkan penutupan hamburger.
+    */
+    if(window.innerWidth <= 900){
+        const mobileSidebar = document.getElementById("sidebar");
+        if(mobileSidebar) mobileSidebar.classList.remove("show");
+    }
+
+    /*
        Mode Demo boleh membuka seluruh halaman SellerBooks.
        Pembatasan hanya pada aksi yang mengubah data.
     */
@@ -17851,24 +17861,6 @@ function showView(viewId, button, saveHistory = true){
     }
     if(typeof sellerBooksApplyNotificationLanguage === "function"){
         sellerBooksApplyNotificationLanguage();
-    }
-
-
-    /* =========================================
-       TUTUP SIDEBAR DI HP
-    ========================================= */
-
-    if(window.innerWidth <= 900){
-
-        const sidebar =
-            document.getElementById("sidebar");
-
-        if(sidebar){
-
-            sidebar.classList.remove("show");
-
-        }
-
     }
 
 
