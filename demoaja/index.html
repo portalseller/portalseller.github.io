@@ -10036,7 +10036,7 @@ document.addEventListener(
 
             <button
                 class="menu-item"
-                onclick="showView('import',this); setTimeout(function(){ var sb=document.getElementById('sidebar'); if(sb) sb.classList.remove('show'); }, 150)"
+                onclick="showView('import',this)"
             >
 
                 <span class="menu-icon">📥</span>
@@ -15717,7 +15717,12 @@ function sellerBooksApplyDemoReadOnly(){
            Tombol navigasi/filter tetap aktif. Tombol yang berpotensi
            mengubah data akan diblokir oleh event guard di bawah.
         */
+        const isImportNavigation =
+            button.classList.contains("menu-item") &&
+            onclick.indexOf("showview('import'") !== -1;
+
         if(
+            !isImportNavigation &&
             /save|simpan|edit|hapus|delete|remove|import|upload|tarik|integrat|connect|disconnect|aktifkan|nonaktifkan|reset|tambah|add|create|update|submit/.test(
                 onclick + " " + id + " " + label
             )
