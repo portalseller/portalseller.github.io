@@ -10036,7 +10036,7 @@ document.addEventListener(
 
             <button
                 class="menu-item"
-                onclick="showView('import',this); document.getElementById('sidebar').classList.remove('show')"
+                onclick="showView('import',this); setTimeout(function(){ var sb=document.getElementById('sidebar'); if(sb) sb.classList.remove('show'); }, 150)"
             >
 
                 <span class="menu-icon">📥</span>
