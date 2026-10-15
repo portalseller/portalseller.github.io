@@ -165,5 +165,20 @@ footer{border-top:1px solid var(--line);padding:28px 0;color:#667085;font-size:1
 <footer>
 <div class="container">© 2026 SellerBooks. Marketplace Business Intelligence.</div>
 </footer>
+
+<script>
+/* Pada browser HP, buka aplikasi email melalui mailto. Desktop tetap memakai Gmail Compose. */
+(function(){
+  const isMobileDevice = /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent);
+  if (!isMobileDevice) return;
+  document.querySelectorAll('.support-actions a.email').forEach(function(emailLink){
+    emailLink.addEventListener('click', function(e){
+      e.preventDefault();
+      window.location.href = 'mailto:sellerbooks@amasaindonesia.com';
+    });
+  });
+})();
+</script>
+
 </body>
 </html>
