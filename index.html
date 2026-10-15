@@ -249,6 +249,17 @@ if(videoClose)videoClose.addEventListener('click',closeProductVideo);
 videoModal.addEventListener('click',function(e){if(e.target===videoModal)closeProductVideo()});
 document.addEventListener('keydown',function(e){if(e.key==='Escape')closeProductVideo()});
 
+/* Pada perangkat mobile, buka aplikasi email melalui mailto. Desktop tetap memakai Gmail Compose. */
+const isMobileDevice=/Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent);
+if(isMobileDevice){
+  document.querySelectorAll('.contact-email, #sellerBooksFloatingCSModal .sb-cs-option.email').forEach(function(emailLink){
+    emailLink.addEventListener('click',function(e){
+      e.preventDefault();
+      window.location.href='mailto:sellerbooks@amasaindonesia.com';
+    });
+  });
+}
+
 const contactModal=document.getElementById('contactModal');
 document.getElementById('contactOpen').addEventListener('click',e=>{e.preventDefault();contactModal.classList.add('show')});
 document.getElementById('contactClose').addEventListener('click',()=>contactModal.classList.remove('show'));
